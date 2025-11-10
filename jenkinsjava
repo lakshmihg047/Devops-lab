@@ -1,0 +1,32 @@
+pipeline {
+  agent any
+
+tools {
+  jdk 'jdk21'
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        git branch: 'master', url:'https://github.com/lakshmihg047/Devops-lab/'
+      }
+    }
+stage('Compile') {
+  steps {
+    echo 'Compile java program...'
+    sh 'javac HelloWorld.java'
+  }
+}
+stage('Run') {
+  steps {
+    echo 'Running java program...'
+    sh 'java HelloWorld'
+    }
+}}
+post {
+  success {
+    echo 'Build and execution successfull!'
+  }
+  failure {
+    echo 'Build failed'
+    }
+}}
